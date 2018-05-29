@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
+    <div align="left">
+        <h:form>
+            <p:fieldset legend="Cadastro Cliente">
+                <p:panelGrid columns="2" layout="grid" style="width: 600px">
+                    <h:outputLabel value="Nome"></h:outputLabel>
+                    <p:inputText value="#{clienteController.cliente.nome}" required="true" requiredMessage="Nome Obrigatório"></p:inputText>
+
+                    <h:outputLabel value="CPF"></h:outputLabel>
+                    <p:inputMask mask="999.999.999-99" value="#{clienteController.cliente.CPF}" required="true" requiredMessage="CPF Obrigatório"></p:inputMask>
+
+                    <h:outputLabel value="Endereço"></h:outputLabel>
+                    <p:inputText value="#{clienteController.cliente.endereco}"></p:inputText>
+
+                    <h:outputLabel value="Telefone"></h:outputLabel>
+                    <p:inputMask mask="(99)99999-9999" value="#{clienteController.cliente.telefone}"></p:inputMask>
+
+                    <h:outputLabel value="Data de Nascimento"></h:outputLabel>
+                    <p:calendar value="#{clienteController.cliente.data_nascimento}" required="true" requiredMessage="Data de nascimento Obrigatório"></p:calendar>
+                    <h:outputLabel></h:outputLabel>
+                    <h:commandButton value="Cadastrar" action="#{clienteController.cadastrar()}" style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
+                </p:panelGrid>
+                <p:messages autoUpdate="true" showDetail="true"></p:messages>
+            </p:fieldset>
+        </h:form>
+    </div>
+</ui:decorate>
+

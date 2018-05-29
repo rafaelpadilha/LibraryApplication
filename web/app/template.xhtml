@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>LibSistem</title>
+    </h:head>
+    <h:body style="background: url(https://goo.gl/P5VUFe)">
+        <div align="center"><h1 style="color: white">Library Sistem</h1>
+            <hr></hr>
+            <h:form>
+                <p:menubar style="background-color: darkgoldenrod">
+                    <p:menuitem value="Home" url="index.jsf"></p:menuitem>
+                    <p:submenu  label="Cliente" style="">
+                        <p:menuitem value="Cadastrar Cliente" url="cadastrarcliente.jsf"></p:menuitem>
+                        <p:menuitem value="Buscar Cliente" url="buscarcliente.jsf"></p:menuitem>
+                        <p:menuitem value="Pagar Multa" url="pagarmulta.jsf"></p:menuitem>
+                    </p:submenu>
+                    <p:submenu label="Livro">
+                        <p:menuitem value="Cadastrar Livro" url="cadastrarlivro.jsf"></p:menuitem>
+                        <p:menuitem value="Buscar Livro" url="buscarlivro.jsf"></p:menuitem>
+                        <p:menuitem value="Registrar Emprestimo" url="registraremprestimo.jsf"></p:menuitem>
+                        <p:menuitem value="Registrar Devolução" url="registrardevolucao.jsf"></p:menuitem>
+                    </p:submenu>
+                    <p:submenu label="Bibliotecário">
+                        <p:menuitem value="Cadastrar Bibliotecário" url="cadastrarbibliotecario.jsf"></p:menuitem>
+                        <p:menuitem value="Buscar Bibliotecário" url="buscarbibliotecario.jsf"></p:menuitem>
+                    </p:submenu>
+                    <p:submenu label="Opções">
+                        <p:menuitem value="Alterar Senha" url="alterarsenha.jsf"></p:menuitem>
+                        <p:menuitem value="Sair" action="#{loginController.logout()}"></p:menuitem>
+                    </p:submenu>
+                </p:menubar>
+            </h:form>
+            <ui:insert></ui:insert>
+        </div>
+    </h:body>
+</html>
+
+
