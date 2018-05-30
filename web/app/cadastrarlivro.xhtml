@@ -12,22 +12,22 @@
             <p:fieldset legend="Cadastro Livro">
                 <p:panelGrid columns="2" layout="grid" style="width: 600px">
                     <h:outputLabel value="ISBN"></h:outputLabel>
-                    <p:inputNumber value="#{livroController.livro.isbn}"></p:inputNumber>
+                    <p:inputText  value="#{livroController.livro.isbn}" required="true" requiredMessage="ISBN Obrigatório"></p:inputText>
 
                     <h:outputLabel value="Título"></h:outputLabel>
-                    <p:inputText value="#{livroController.livro.titulo}"></p:inputText>
+                    <p:inputText value="#{livroController.livro.titulo}" required="true" requiredMessage="Título Obrigatório"></p:inputText>
                     
                     <h:outputLabel value="Autor"></h:outputLabel>
-                    <p:inputText value="#{livroController.livro.autor}"></p:inputText>
+                    <p:inputText value="#{livroController.livro.autor}" required="true" requiredMessage="Autor Obrigatório"></p:inputText>
                     
                     <h:outputLabel value="Quanditade"></h:outputLabel>
-                    <p:inputNumber value="#{livroController.livro.quantidade}"></p:inputNumber>
+                    <p:inputNumber padControl="false" value="#{livroController.livro.quantidade}" required="true" requiredMessage="ISBN Obrigatório" minValue="0"></p:inputNumber>
                     
                     <h:outputLabel value="Descrição"></h:outputLabel>
                     <p:inputTextarea value="#{livroController.livro.descricao}" ></p:inputTextarea>
 
                     <h:outputLabel></h:outputLabel>
-                    <h:commandButton value="Cadastrar" action="#{clienteController.cadastrar()}" style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
+                    <h:commandButton value="Cadastrar" action="#{livroController.cadastrar()}" style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
                 </p:panelGrid>
                 <p:messages autoUpdate="true" showDetail="true"></p:messages>
             </p:fieldset>

@@ -3,11 +3,129 @@
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-    <h1 style="color: white">
-        Buscar Livro
-    </h1>
+    <div>
+        <h:form>
+            <p:messages showDetail="true">
+                <p:autoUpdate></p:autoUpdate>
+            </p:messages>
+            <p:fieldset legend="Listar Livros">
+                <p:panelGrid style="width: 100%">
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Pesquisar:"></p:outputLabel>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="filtrar" style="width: 98%;" value="#{livroController.textoBusca}" onkeydown="#{livroController.listar()}">
+                                <p:ajax event="keyup" update="@form" ></p:ajax>
+                            </p:inputText>
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu style="width: 88%" value="#{livroController.opBusca}">
+                                <f:selectItem itemLabel="Título" itemValue="titulo"></f:selectItem>
+                                <f:selectItem itemLabel="ISBN" itemValue="isbn"></f:selectItem>
+                                <f:selectItem itemLabel="Autor" itemValue="autor"></f:selectItem>
+                                <p:ajax update="@form" ></p:ajax>
+                            </p:selectOneMenu>
+                        </p:column>
+
+                    </p:row>
+                    <p:row>
+                        <h:form id="dados">
+                            <p:outputLabel value="#{livroController.listar()}"></p:outputLabel>
+                            <p:column colspan="3">
+                                <p:dataTable var="livro" style="width: 100%" value="#{livroController.livros}">
+                                    <p:column headerText="Opções">
+                                        <!--OPÇOES-->
+
+                                        <p:commandLink update=":del" oncomplete="PF('delLivro').show()">
+                                            <h:outputText styleClass="ui-icon ui-icon-close" style="margin:0 auto;" title="Cancelar Livro"/>
+                                            <f:setPropertyActionListener value="#{livro}" target="#{livroController.livroSelecionado}" />
+                                        </p:commandLink>
+
+                                        <p:commandLink update=":editar" oncomplete="PF('editLivro').show()">
+                                            <h:outputText styleClass="ui-icon ui-icon-pencil" style="margin:0 auto;" title="Editar Livro"/>
+                                            <f:setPropertyActionListener value="#{livro}" target="#{livroController.livroSelecionado}" />
+                                        </p:commandLink>
+
+                                    </p:column>
+                                    <p:column headerText="ISBN">
+                                        <h:outputText value="#{livro.isbn}"></h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Título">
+                                        <h:outputText value="#{livro.titulo}"></h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Autor">
+                                        <h:outputText value="#{livro.autor}"></h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Quantidade">
+                                        <h:outputText value="#{livro.quantidade}"></h:outputText>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:column>
+                        </h:form>
+                    </p:row>
+
+
+
+                </p:panelGrid>
+            </p:fieldset>
+        </h:form>
+        <h:form id="del">
+            <p:dialog header="Cancelar Livro" widgetVar="delLivro" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <h:outputText value="Deseja mesmo cancelar o livro:"></h:outputText>
+                <p:outputPanel id="clienteInfo" rendered="#{not empty livroController.livroSelecionado}">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="ISBN:    "></h:outputText>
+                        <h:outputText value="#{livroController.livroSelecionado.isbn}"></h:outputText>
+
+                        <h:outputText value="Título:    "></h:outputText>
+                        <h:outputText value="#{livroController.livroSelecionado.titulo}"></h:outputText>
+
+                        <h:outputText value="Autor:    "></h:outputText>
+                        <h:outputText value="#{livroController.livroSelecionado.autor}"></h:outputText>
+
+                        <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{livroController.deletar(livroController.livroSelecionado)}" onclick="PF('delLivro').hide();update('@form')"></p:commandButton>
+                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('delLivro').hide()"></p:commandButton>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+        <h:form id='editar'>
+            <p:dialog header="Editar Cliente" widgetVar="editLivro" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel rendered="#{not empty livroController.livroSelecionado}">
+                    <p:panelGrid columns="2">
+                        <h:outputLabel value="ISBN"></h:outputLabel>
+                        <p:inputText  value="#{livroController.livroSelecionado.isbn}" required="true" requiredMessage="ISBN Obrigatório"></p:inputText>
+
+                        <h:outputLabel value="Título"></h:outputLabel>
+                        <p:inputText value="#{livroController.livroSelecionado.titulo}" required="true" requiredMessage="Título Obrigatório"></p:inputText>
+
+                        <h:outputLabel value="Autor"></h:outputLabel>
+                        <p:inputText value="#{livroController.livroSelecionado.autor}" required="true" requiredMessage="Autor Obrigatório"></p:inputText>
+
+                        <h:outputLabel value="Quanditade"></h:outputLabel>
+                        <p:inputNumber padControl="false" value="#{livroController.livroSelecionado.quantidade}" required="true" requiredMessage="ISBN Obrigatório" minValue="0"></p:inputNumber>
+
+                        <h:outputLabel value="Descrição"></h:outputLabel>
+                        <p:inputTextarea value="#{livroController.livroSelecionado.descricao}" ></p:inputTextarea>
+
+
+                        <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{livroController.editar(livroController.livroSelecionado)}" onclick="PF('editLivro').hide();update('@form')"></p:commandButton>
+                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('editLivro').hide()"></p:commandButton>
+
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </div>
 </ui:decorate>
 

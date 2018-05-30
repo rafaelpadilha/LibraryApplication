@@ -3,6 +3,8 @@ package beans;
 import dao.LivroDAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,16 +18,59 @@ public class LivroController {
     private Livro livro = new Livro();
     private List<Livro> livros = new ArrayList<>();
     private LivroDAO ldao = new LivroDAO();
+    private String textoBusca = "";
+    private String opBusca;
+    private Livro livroSelecionado;
     
     public void cadastrar(){
         try {
             ldao.salvar(livro);
             livro = new Livro();
-            
-            adicionarMensagem("Concluido!", "Cliente cadastrado com sucesso", FacesMessage.SEVERITY_INFO);
+            adicionarMensagem("Concluido!", "Livro cadastrado com sucesso!", FacesMessage.SEVERITY_INFO);
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+    }
+    
+    public void listar(){
+        try {
+            setLivros(ldao.buscar(this.getTextoBusca(), this.getOpBusca()));
+            System.out.println(textoBusca);
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+    
+    public void deletar(Livro l){
+        
+    }
+    
+    public void editar(Livro l){
+        
+    }
+
+    public String getTextoBusca() {
+        return textoBusca;
+    }
+
+    public void setTextoBusca(String textoBusca) {
+        this.textoBusca = textoBusca;
+    }
+
+    public String getOpBusca() {
+        return opBusca;
+    }
+
+    public void setOpBusca(String opBusca) {
+        this.opBusca = opBusca;
+    }
+
+    public Livro getLivroSelecionado() {
+        return livroSelecionado;
+    }
+
+    public void setLivroSelecionado(Livro livroSelecionado) {
+        this.livroSelecionado = livroSelecionado;
     }
 
     public Livro getLivro() {

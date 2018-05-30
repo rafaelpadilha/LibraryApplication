@@ -3,17 +3,17 @@ package model;
 import java.util.Objects;
 
 public class Livro {
-    private Integer isbn;
+    private String isbn;
     private String titulo;
     private String autor;
     private Integer quantidade;
     private String descricao;
 
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
