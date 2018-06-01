@@ -35,18 +35,26 @@ public class LivroController {
     public void listar(){
         try {
             setLivros(ldao.buscar(this.getTextoBusca(), this.getOpBusca()));
-            System.out.println(textoBusca);
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
     
     public void deletar(Livro l){
-        
+        try{
+            ldao.deletar(l);
+        }catch(ErroSistema ex){
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
     }
     
     public void editar(Livro l){
-        
+        try {
+            ldao.atualizar(this.getLivroSelecionado());
+            adicionarMensagem("Concluido!", "Edição feita com sucesso.", FacesMessage.SEVERITY_INFO);
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
     }
 
     public String getTextoBusca() {

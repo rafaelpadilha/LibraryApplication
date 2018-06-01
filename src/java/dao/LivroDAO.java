@@ -59,11 +59,35 @@ public class LivroDAO {
         }
     }
 
-    public void atualizar() {
-
+    public void atualizar(Livro l) throws ErroSistema{
+        String sql = "update livros set titulo=?, autor=?, quantidade=?, descricao=? where isbn=?";
+        try {
+            Connection conexao = ConnectionFactory.getConexao();
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, l.getTitulo());
+            ps.setString(2, l.getAutor());
+            ps.setInt(3, l.getQuantidade());
+            ps.setString(4, l.getDescricao());
+            ps.setString(5, l.getIsbn());
+            ps.execute();
+        } catch(ErroSistema ex){
+            throw new ErroSistema("Erro ao editar livro:", ex);
+        }catch (SQLException ex) {
+            throw new ErroSistema("Erro ao editar livro:", ex);
+        }
     }
 
-    public void deletar() {
-
+    public void deletar(Livro l) throws ErroSistema{
+        String sql = "delete from livros where isbn=?";
+        try{
+            Connection conexao = ConnectionFactory.getConexao();
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, l.getIsbn());
+            ps.execute();
+        }catch(ErroSistema ex){
+            throw new ErroSistema("Erro ao editar livro:", ex);
+        }catch (SQLException ex) {
+            throw new ErroSistema("Erro ao editar livro:", ex);
+        }
     }
 }

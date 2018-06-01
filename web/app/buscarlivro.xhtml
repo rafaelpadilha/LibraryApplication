@@ -73,9 +73,6 @@
                             </p:column>
                         </h:form>
                     </p:row>
-
-
-
                 </p:panelGrid>
             </p:fieldset>
         </h:form>
@@ -100,23 +97,23 @@
             </p:dialog>
         </h:form>
         <h:form id='editar'>
-            <p:dialog header="Editar Cliente" widgetVar="editLivro" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:dialog header="Editar Livro" widgetVar="editLivro" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel rendered="#{not empty livroController.livroSelecionado}">
                     <p:panelGrid columns="2">
                         <h:outputLabel value="ISBN"></h:outputLabel>
-                        <p:inputText  value="#{livroController.livroSelecionado.isbn}" required="true" requiredMessage="ISBN Obrigatório"></p:inputText>
+                        <p:inputText  value="#{livroController.livroSelecionado.isbn}" disabled="true" requiredMessage="ISBN Obrigatório" maxlength="20"></p:inputText>
 
                         <h:outputLabel value="Título"></h:outputLabel>
-                        <p:inputText value="#{livroController.livroSelecionado.titulo}" required="true" requiredMessage="Título Obrigatório"></p:inputText>
+                        <p:inputText value="#{livroController.livroSelecionado.titulo}" required="true" requiredMessage="Título Obrigatório" maxlength="30"></p:inputText>
 
                         <h:outputLabel value="Autor"></h:outputLabel>
-                        <p:inputText value="#{livroController.livroSelecionado.autor}" required="true" requiredMessage="Autor Obrigatório"></p:inputText>
+                        <p:inputText value="#{livroController.livroSelecionado.autor}" required="true" requiredMessage="Autor Obrigatório" maxlength="20"></p:inputText>
 
                         <h:outputLabel value="Quanditade"></h:outputLabel>
                         <p:inputNumber padControl="false" value="#{livroController.livroSelecionado.quantidade}" required="true" requiredMessage="ISBN Obrigatório" minValue="0"></p:inputNumber>
 
                         <h:outputLabel value="Descrição"></h:outputLabel>
-                        <p:inputTextarea value="#{livroController.livroSelecionado.descricao}" ></p:inputTextarea>
+                        <p:inputTextarea value="#{livroController.livroSelecionado.descricao}" maxlength="140"></p:inputTextarea>
 
 
                         <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{livroController.editar(livroController.livroSelecionado)}" onclick="PF('editLivro').hide();update('@form')"></p:commandButton>
