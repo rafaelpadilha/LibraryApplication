@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/src/java/dao/ClienteDAO.java</file>
-            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/src/java/beans/LivroController.java</file>
-            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/src/java/dao/LivroDAO.java</file>
-            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/src/java/beans/ClienteController.java</file>
-            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/web/app/cadastrarlivro.xhtml</file>
-            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/web/app/buscarlivro.xhtml</file>
+            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/src/java/beans/FuncionarioController.java</file>
+            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/web/app/buscarcliente.xhtml</file>
+            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/web/app/template.xhtml</file>
+            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/web/app/cadastrarcliente.xhtml</file>
+            <file>file:/C:/Users/RAFAEL/Documents/gitClone/LibraryApplicationClone/web/app/cadastrarbibliotecario.xhtml</file>
         </group>
     </open-files>
 </project-private>

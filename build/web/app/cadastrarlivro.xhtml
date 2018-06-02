@@ -7,10 +7,10 @@
              xmlns:p="http://primefaces.org/ui">
 
 
-    <div align="left">
+    <div align="left" style="width: 100%">
         <h:form>
             <p:fieldset legend="Cadastro Livro">
-                <p:panelGrid columns="2" layout="grid" style="width: 600px">
+                <p:panelGrid columns="2" layout="grid" style="width: 100%" styleClass="ui-noborder">
                     <h:outputLabel value="ISBN"></h:outputLabel>
                     <p:inputText  value="#{livroController.livro.isbn}" required="true" requiredMessage="ISBN Obrigatório" maxlength="20"></p:inputText>
 

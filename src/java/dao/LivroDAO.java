@@ -23,6 +23,7 @@ public class LivroDAO {
             ps.setInt(4, livro.getQuantidade());
             ps.setString(5, livro.getDescricao());
             ps.execute();
+            ConnectionFactory.fechaConexao();
         }catch(ErroSistema ex){
             throw new ErroSistema("Erro ao cadastrar livro:", ex);
         }catch (SQLException ex) {
@@ -51,6 +52,7 @@ public class LivroDAO {
                 livro.setDescricao(rs.getString("descricao"));
                 livros.add(livro);
             }
+            ConnectionFactory.fechaConexao();
             return livros;
         } catch(ErroSistema ex){
             throw new ErroSistema("Erro ao cadastrar livro:", ex);
@@ -70,6 +72,7 @@ public class LivroDAO {
             ps.setString(4, l.getDescricao());
             ps.setString(5, l.getIsbn());
             ps.execute();
+            ConnectionFactory.fechaConexao();
         } catch(ErroSistema ex){
             throw new ErroSistema("Erro ao editar livro:", ex);
         }catch (SQLException ex) {
@@ -84,6 +87,7 @@ public class LivroDAO {
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, l.getIsbn());
             ps.execute();
+            ConnectionFactory.fechaConexao();
         }catch(ErroSistema ex){
             throw new ErroSistema("Erro ao editar livro:", ex);
         }catch (SQLException ex) {

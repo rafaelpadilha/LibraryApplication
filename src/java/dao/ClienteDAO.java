@@ -47,7 +47,6 @@ public class ClienteDAO {
         } else {
             sql = "select * from pessoas where status=2 and " + op + " like \'%" + texto + "%\'";
         }
-        System.out.println("TESTE DAO\n" + sql);
         try {
             Connection conexao = ConnectionFactory.getConexao();
             PreparedStatement ps = conexao.prepareStatement(sql);
@@ -62,8 +61,8 @@ public class ClienteDAO {
                 c.setData_nascimento(rs.getDate("data_nascimento"));
                 c.setStatus(rs.getInt("status"));
                 clientes.add(c);
-                System.out.println("ClienteNomeDAO:" + c.getNome());
             }
+            ConnectionFactory.fechaConexao();
             return clientes;
         } catch (ErroSistema ex) {
             throw new ErroSistema("Erro ao listar cliente!", ex);
@@ -84,6 +83,7 @@ public class ClienteDAO {
             ps.setDate(5, new Date(c.getData_nascimento().getTime()));
             ps.setInt(6, c.getId());
             ps.execute();
+            ConnectionFactory.fechaConexao();
         } catch (ErroSistema ex) {
             throw new ErroSistema("Erro ao listar cliente!", ex);
         } catch (SQLException ex) {
@@ -98,6 +98,7 @@ public class ClienteDAO {
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setInt(1, c.getId());
             ps.execute();
+            ConnectionFactory.fechaConexao();
         } catch (ErroSistema ex) {
             throw new ErroSistema("Erro ao listar cliente!", ex);
         } catch (SQLException ex) {

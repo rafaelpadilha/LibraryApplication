@@ -3,11 +3,51 @@
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-    <h1 style="color: white">
-        Cadastro Bibliotecario
-    </h1>
+    <div align="left">
+        <h:form>
+            <p:fieldset legend="Cadastro Funcionário">
+                <p:panelGrid columns="2" layout="grid" style="width: 100%" styleClass="ui-noborder">
+                    <h:outputLabel value="Nome"/>
+                    <p:inputText value="#{funcionarioController.funcionario.nome}" required="true" requiredMessage="Nome Obrigatório"/>
+
+                    <h:outputLabel value="CPF"/>
+                    <p:inputMask mask="999.999.999-99" value="#{funcionarioController.funcionario.CPF}" required="true" requiredMessage="CPF Obrigatório"/>
+
+                    <h:outputLabel value="Endereço"/>
+                    <p:inputText value="#{funcionarioController.funcionario.endereco}"/>
+
+                    <h:outputLabel value="Telefone"/>
+                    <p:inputMask mask="(99)99999-9999" value="#{funcionarioController.funcionario.telefone}"/>
+
+                    <h:outputLabel value="Data de Nascimento"/>
+                    <p:calendar value="#{funcionarioController.funcionario.data_nascimento}" required="true" requiredMessage="Data de nascimento Obrigatório"/>
+
+                    <h:outputLabel value="Login"/>
+                    <p:inputText value="#{funcionarioController.funcionario.login}" required="true" requiredMessage="Login Obrigatório"/>
+
+                    <h:outputLabel value="Senha"/>
+                    <p:password id="pwd1" match="pwd2" feedback="true" value="#{funcionarioController.funcionario.senha}" required="true" requiredMessage="Senha Obrigatória"/>
+
+                    <h:outputLabel value="Confirmar Senha"/>
+                    <p:password id="pwd2" feedback="true" value="#{funcionarioController.funcionario.senha}" required="true" requiredMessage="Senha Obrigatória"/>
+
+                    <h:outputLabel value="Cargo"/>
+                    <p:selectOneMenu value="#{funcionarioController.funcionario.status}">
+                        <f:selectItem itemLabel="Bibliotecário" itemValue="3"/>
+                        <f:selectItem itemLabel="Gerente" itemValue="4"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel/>
+                    <h:commandButton value="Cadastrar" action="#{funcionarioController.cadastrar()}" style="height: 50px;width: 200px;background-color: greenyellow"/>
+                </p:panelGrid>
+                <p:messages autoUpdate="true" showDetail="true"/>
+            </p:fieldset>
+        </h:form>
+    </div>
 </ui:decorate>
 

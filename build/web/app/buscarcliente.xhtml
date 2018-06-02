@@ -11,8 +11,8 @@
     <div>
         <h:form>
             <p:messages autoUpdate="true" showDetail="true"></p:messages>
-            <p:fieldset legend="Listar Clientes" style="opacity: 5">
-                <p:panelGrid style="width: 100%">
+            <p:fieldset legend="Listar Clientes">
+                <p:panelGrid style="width: 100%" styleClass="ui-noborder">
                     <p:row>
                         <p:column>
                             <p:outputLabel value="Pesquisar:"></p:outputLabel>
@@ -37,38 +37,43 @@
                             <p:column colspan="3">
                                 <p:dataTable var="cliente" style="width: 100%" value="#{clienteController.clientes}">
                                     <p:column headerText="Opções">
-                                        <!--OPÇOES-->
-                                        
-                                        <p:commandLink update=":del" oncomplete="PF('delCliente').show()">
-                                            <h:outputText styleClass="ui-icon ui-icon-close" style="margin:0 auto;" title="Cancelar Cliente"/>
-                                            <f:setPropertyActionListener value="#{cliente}" target="#{clienteController.clienteSelecionado}" />
-                                        </p:commandLink>
-                                        
-                                        <p:commandLink update=":editar" oncomplete="PF('editCliente').show()">
-                                            <h:outputText styleClass="ui-icon ui-icon-pencil" style="margin:0 auto;" title="Editar Cliente"/>
-                                            <f:setPropertyActionListener value="#{cliente}" target="#{clienteController.clienteSelecionado}" />
-                                        </p:commandLink>
-
+                                        <p:panelGrid>
+                                            <!--OPÇOES-->
+                                            <p:row>
+                                                <p:column>
+                                                    <p:commandLink update=":del" oncomplete="PF('delCliente').show()">
+                                                        <h:outputText styleClass="ui-icon ui-icon-close" style="margin:0 auto;" title="Cancelar Cliente"/>
+                                                        <f:setPropertyActionListener value="#{cliente}" target="#{clienteController.clienteSelecionado}" />
+                                                    </p:commandLink>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:commandLink update=":editar" oncomplete="PF('editCliente').show()">
+                                                        <h:outputText styleClass="ui-icon ui-icon-pencil" style="margin:0 auto;" title="Editar Cliente"/>
+                                                        <f:setPropertyActionListener value="#{cliente}" target="#{clienteController.clienteSelecionado}" />
+                                                    </p:commandLink>
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
                                     </p:column>
-                                    <p:column headerText="ID">
+                                    <p:column headerText="ID" sortBy="#{cliente.id}">
                                         <h:outputText value="#{cliente.id}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Nome">
+                                    <p:column headerText="Nome" sortBy="#{cliente.nome}">
                                         <h:outputText value="#{cliente.nome}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="CPF">
+                                    <p:column headerText="CPF" sortBy="#{cliente.CPF}">
                                         <h:outputText value="#{cliente.CPF}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Endereço">
+                                    <p:column headerText="Endereço" sortBy="#{cliente.endereco}">
                                         <h:outputText value="#{cliente.endereco}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Telefone">
+                                    <p:column headerText="Telefone" sortBy="#{cliente.telefone}">
                                         <h:outputText value="#{cliente.telefone}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Data de Nascimento">
+                                    <p:column headerText="Data de Nascimento" sortBy="#{cliente.data_nascimento}">
                                         <h:outputText value="#{cliente.data_nascimento}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Status">
+                                    <p:column headerText="Status" sortBy="#{cliente.status}">
                                         <h:outputText value="#{cliente.status}"></h:outputText>
                                     </p:column>
                                 </p:dataTable>
