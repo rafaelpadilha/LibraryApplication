@@ -10,7 +10,7 @@
 
     <div>
         <h:form>
-            <p:messages autoUpdate="true" showDetail="true"></p:messages>
+            
             <p:fieldset legend="Listar Clientes">
                 <p:panelGrid style="width: 100%" styleClass="ui-noborder">
                     <p:row>
@@ -18,7 +18,7 @@
                             <p:outputLabel value="Pesquisar:"></p:outputLabel>
                         </p:column>
                         <p:column>
-                            <p:inputText id="filtrar" style="width: 98%;" value="#{clienteController.textoBusca}" onkeydown="#{clienteController.listar()}">
+                            <p:inputText id="filtrar" style="width: 98%" value="#{clienteController.textoBusca}" onkeydown="#{clienteController.listar()}">
                                 <p:ajax event="keyup" update="@form" ></p:ajax>
                             </p:inputText>
                         </p:column>

@@ -1,6 +1,7 @@
 package beans;
 
 import dao.FuncionarioDAO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -22,7 +23,7 @@ public class FuncionarioController {
     private List<Funcionario> funcionarios = new ArrayList<>();
     private FuncionarioDAO fdao = new FuncionarioDAO();
     private String textoBusca = "";
-    private String opBusca;
+    private String opBusca = "nome";
     private Funcionario funcionarioSelecionado;
 
     public void cadastrar() {
@@ -37,12 +38,13 @@ public class FuncionarioController {
 
     public void editar(Funcionario f) {
         try {
-            if(f.getSenha() == null)
+            if (f.getSenha() == null) {
                 f.setSenha("");
+            }
             fdao.alterar(f);
             adicionarMensagem("Concluido,", "Funcionário alterado com sucesso!", FacesMessage.SEVERITY_INFO);
-            
-        }  catch (ErroSistema ex) {
+
+        } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
@@ -53,7 +55,10 @@ public class FuncionarioController {
 
     public void listar() {
         try {
-            setFuncionarios(fdao.buscar(this.textoBusca, this.opBusca));
+            setFuncionarios(fdao.buscar(this.getTextoBusca(), this.getOpBusca()));
+            System.out.println(getOpBusca());
+            adicionarMensagem("Concluido,", "teste", FacesMessage.SEVERITY_INFO);
+
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }

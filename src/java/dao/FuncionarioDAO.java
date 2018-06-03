@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Cliente;
 import model.Funcionario;
 import util.ConnectionFactory;
 import util.exception.ErroSistema;
@@ -68,6 +67,7 @@ public class FuncionarioDAO {
             ps.setInt(6, f.getStatus());
             ps.setInt(7, f.getId());
             ps.execute();
+            System.out.println("SQL:" + f.getStatus());
             ps = conexao.prepareStatement(sql2);
             ps.setString(1, f.getLogin());
             ps.setInt(2, f.getId());
@@ -86,7 +86,7 @@ public class FuncionarioDAO {
         if (txt.isEmpty()) {
             sql = "select * from funcionarios";
         } else {
-            sql = "select * from funcionarios and " + op + " like \'%" + txt + "%\'";
+            sql = "select * from funcionarios where " + op + " like \'%" + txt + "%\'";
         }
         try {
             Connection conexao = ConnectionFactory.getConexao();

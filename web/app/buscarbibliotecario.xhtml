@@ -10,7 +10,6 @@
 
     <div>
         <h:form>
-            <p:messages autoUpdate="true" showDetail="true"/>
             <p:fieldset legend="Listar Funcionários">
                 <p:panelGrid style="width: 100%" styleClass="ui-noborder">
                     <p:row>
@@ -18,16 +17,16 @@
                             <p:outputLabel value="Pesquisar:"/>
                         </p:column>
                         <p:column>
-                            <p:inputText id="filtrar" style="width: 98%;" value="#{funcionarioController.textoBusca}" onkeydown="#{funcionarioController.listar()}">
-                                <p:ajax event="keyup" update="@form" />
+                            <p:inputText id="filtrar" style="width: 98%" value="#{funcionarioController.textoBusca}">
+                                <p:ajax event="keyup" update="@form"></p:ajax>
                             </p:inputText>
                         </p:column>
                         <p:column>
                             <p:selectOneMenu style="width: 88%" value="#{funcionarioController.opBusca}">
-                                <f:selectItem itemLabel="Nome" itemValue="nome"/>
-                                <f:selectItem itemLabel="ID" itemValue="id"/>
-                                <f:selectItem itemLabel="CPF" itemValue="cpf"/>
-                                <p:ajax update="@form" />
+                                <f:selectItem itemLabel="Nome" itemValue="nome" noSelectionOption="true"></f:selectItem>
+                                <f:selectItem itemLabel="ID" itemValue="id"></f:selectItem>
+                                <f:selectItem itemLabel="CPF" itemValue="cpf"></f:selectItem>
+                                <p:ajax update="@form" ></p:ajax>
                             </p:selectOneMenu>
                         </p:column>
                     </p:row>
@@ -135,15 +134,16 @@
                         <p:inputText value="#{funcionarioController.funcionarioSelecionado.login}"/>
 
                         <h:outputLabel value="Alterar Senha"/>
-                        <p:password id="pwd1" match="pwd2" feedback="true" value="#{funcionarioController.funcionario.senha}"/>
+                        <p:password id="pwd1" match="pwd2" feedback="true" value="#{funcionarioController.funcionarioSelecionado.senha}"/>
 
                         <h:outputLabel value="Confirmar Senha"/>
-                        <p:password id="pwd2" feedback="true" value="#{funcionarioController.funcionario.senha}"/>
+                        <p:password id="pwd2" feedback="true" value="#{funcionarioController.funcionarioSelecionado.senha}"/>
 
                         <h:outputLabel value="Cargo"/>
-                        <p:selectOneMenu value="#{funcionarioController.funcionario.status}">
+                        <p:selectOneMenu id="select" value="#{funcionarioController.funcionarioSelecionado.status}">
                             <f:selectItem itemLabel="Bibliotecário" itemValue="3"/>
                             <f:selectItem itemLabel="Gerente" itemValue="4"/>
+                            <p:ajax update="select"/>
                         </p:selectOneMenu>
 
                         <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{funcionarioController.editar(funcionarioController.funcionarioSelecionado)}" onclick="PF('editFunc').hide();update('@form')"/>
