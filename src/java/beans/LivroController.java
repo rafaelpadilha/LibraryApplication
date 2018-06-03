@@ -56,7 +56,7 @@ public class LivroController {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-
+    
     public String getTextoBusca() {
         return textoBusca;
     }

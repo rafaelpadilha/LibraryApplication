@@ -3,11 +3,26 @@
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
 
 
-    <h1 style="color: white">
-        Registrar Emprestimo
-    </h1>
+    <div align="left" style="width: 100%">
+        <h:form>
+            <p:fieldset legend="Registar Empréstimo">
+                <p:panelGrid columns="2" layout="grid" style="width: 100%" styleClass="ui-noborder">
+                    <h:outputLabel value="ISBN"></h:outputLabel>
+                    <p:inputText  value="#{emprestimoController.emprestimo.ISBN}" required="true" requiredMessage="ISBN Obrigatório" maxlength="20"></p:inputText>
+
+                    <h:outputLabel value="CPF"></h:outputLabel>
+                    <p:inputText  value="#{emprestimoController.emprestimo.CPF}" required="true" requiredMessage="CPF Obrigatório" maxlength="20"></p:inputText>
+                    
+                    <h:commandButton value="Cancelar" action="/app/index.jsf" immediate="true" style="height: 50px;width: 200px;"/>
+                    <h:commandButton value="Cadastrar" action="#{emprestimoController.emprestar()}" style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
+                </p:panelGrid>
+                
+            </p:fieldset>
+        </h:form>
+    </div>
 </ui:decorate>
 

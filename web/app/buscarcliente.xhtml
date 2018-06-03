@@ -10,7 +10,7 @@
 
     <div>
         <h:form>
-            
+
             <p:fieldset legend="Listar Clientes">
                 <p:panelGrid style="width: 100%" styleClass="ui-noborder">
                     <p:row>
@@ -49,6 +49,12 @@
                                                 <p:column>
                                                     <p:commandLink update=":editar" oncomplete="PF('editCliente').show()">
                                                         <h:outputText styleClass="ui-icon ui-icon-pencil" style="margin:0 auto;" title="Editar Cliente"/>
+                                                        <f:setPropertyActionListener value="#{cliente}" target="#{clienteController.clienteSelecionado}" />
+                                                    </p:commandLink>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:commandLink update=":listarM" oncomplete="PF('listarMultas').show()">
+                                                        <h:outputText styleClass="ui-icon ui-icon-note" style="margin:0 auto;" title="Verificar Multas"/>
                                                         <f:setPropertyActionListener value="#{cliente}" target="#{clienteController.clienteSelecionado}" />
                                                     </p:commandLink>
                                                 </p:column>
@@ -131,6 +137,15 @@
                         <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{clienteController.editar(clienteController.clienteSelecionado)}" onclick="PF('editCliente').hide();update('@form')"></p:commandButton>
                         <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('editCliente').hide()"></p:commandButton>
 
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+        <h:form id="listarM">
+            <p:dialog header="Listar Multas" widgetVar="listarMultas" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel rendered="#{not empty clienteController.clienteSelecionado}">
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('listarMultas').hide()"></p:commandButton>
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>

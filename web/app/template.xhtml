@@ -16,11 +16,10 @@
                     <p:submenu  label="Cliente" style="">
                         <p:menuitem value="Cadastrar Cliente" url="cadastrarcliente.jsf"></p:menuitem>
                         <p:menuitem value="Buscar Cliente" url="buscarcliente.jsf"></p:menuitem>
-                        <p:menuitem value="Pagar Multa" url="pagarmulta.jsf"></p:menuitem>
                     </p:submenu>
                     <p:submenu label="Livro">
                         <p:menuitem value="Cadastrar Livro" url="cadastrarlivro.jsf"></p:menuitem>
-                        <p:menuitem value="Buscar Livro" url="buscarlivro.jsf"></p:menuitem>
+                        <p:menuitem value="Acervo" url="buscarlivro.jsf"></p:menuitem>
                         <p:menuitem value="Registrar Emprestimo" url="registraremprestimo.jsf"></p:menuitem>
                         <p:menuitem value="Registrar Devolução" url="registrardevolucao.jsf"></p:menuitem>
                     </p:submenu>
@@ -33,9 +32,11 @@
                         <p:menuitem value="Sair" action="#{loginController.logout()}"></p:menuitem>
                     </p:submenu>
                 </p:menubar>
+                <div style="height: 10px"></div>
                 <p:messages showDetail="true" closable="true">
                     <p:autoUpdate/>
                 </p:messages>
+                <div style="height: 10px"></div>
             </h:form>
             <ui:insert></ui:insert>
         </div>

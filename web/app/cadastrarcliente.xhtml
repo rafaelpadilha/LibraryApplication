@@ -23,8 +23,10 @@
 
                     <h:outputLabel value="Data de Nascimento"></h:outputLabel>
                     <p:calendar value="#{clienteController.cliente.data_nascimento}" required="true" requiredMessage="Data de nascimento Obrigatório"></p:calendar>
-                    <h:outputLabel></h:outputLabel>
-                    <h:commandButton value="Cadastrar" action="#{clienteController.cadastrar()}" style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
+
+                    <h:commandButton value="Cancelar" action="/app/index.jsf" style="height: 50px;width: 200px;" immediate="true"/>
+                    <h:commandButton value="Cadastrar" action="#{clienteController.cadastrar()}" style="height: 50px;width: 200px;;background-color: greenyellow"/>
+                    
                 </p:panelGrid>
             </p:fieldset>
         </h:form>

@@ -3,11 +3,29 @@
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
 
 
-    <h1 style="color: white">
-        Alterar Senha
-    </h1>
+    <div align="left" style="width: 100%">
+        <h:form>
+            <p:fieldset legend="Alterar Senha">
+                <p:panelGrid columns="2" layout="grid" style="width: 100%" styleClass="ui-noborder">
+                    <h:outputLabel value="Senha antiga"></h:outputLabel>
+                    <p:password />
+                    
+                    <h:outputLabel value="Senha Nova"></h:outputLabel>
+                    <p:password id="pw1" />
+                    
+                    <h:outputLabel value="Confirmar Senha Nova"></h:outputLabel>
+                    <p:password id="pw2" />
+                                 
+                    <h:commandButton value="Cancelar" action="/app/index.jsf" immediate="true" style="height: 50px;width: 200px;"/>
+                    <h:commandButton value="Cadastrar"  style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
+                </p:panelGrid>
+                
+            </p:fieldset>
+        </h:form>
+    </div>
 </ui:decorate>
 
