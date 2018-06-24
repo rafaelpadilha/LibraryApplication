@@ -18,7 +18,7 @@ import util.exception.ErroSistema;
  */
 @ManagedBean
 @SessionScoped
-public class LoginController implements Serializable{
+public class LoginController{
     private LoginModel login;
     private LoginDAO ldao = new LoginDAO();
 

@@ -25,6 +25,7 @@ public class FuncionarioController {
     private String textoBusca = "";
     private String opBusca = "nome";
     private Funcionario funcionarioSelecionado;
+    private Boolean gerente;
 
     public void cadastrar() {
         try {
@@ -62,6 +63,14 @@ public class FuncionarioController {
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+    }
+
+    public Boolean getGerente() {
+        return gerente;
+    }
+
+    public void setGerente(Boolean gerente) {
+        this.gerente = gerente;
     }
 
     public Funcionario getFuncionario() {

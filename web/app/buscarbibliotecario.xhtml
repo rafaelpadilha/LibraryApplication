@@ -24,7 +24,6 @@
                         <p:column>
                             <p:selectOneMenu style="width: 88%" value="#{funcionarioController.opBusca}">
                                 <f:selectItem itemLabel="Nome" itemValue="nome" noSelectionOption="true"></f:selectItem>
-                                <f:selectItem itemLabel="ID" itemValue="id"></f:selectItem>
                                 <f:selectItem itemLabel="CPF" itemValue="cpf"></f:selectItem>
                                 <p:ajax update="@form" ></p:ajax>
                             </p:selectOneMenu>
@@ -54,23 +53,23 @@
                                             </p:row>
                                         </p:panelGrid>
                                     </p:column>
-                                    <p:column headerText="ID" sortBy="#{func.id}">
-                                        <h:outputText value="#{func.id}"/>
-                                    </p:column>
                                     <p:column headerText="Nome" sortBy="#{func.nome}">
                                         <h:outputText value="#{func.nome}"/>
-                                    </p:column>
-                                    <p:column headerText="Login" sortBy="#{func.login}">
-                                        <h:outputText value="#{func.login}"/>
                                     </p:column>
                                     <p:column headerText="CPF" sortBy="#{func.CPF}">
                                         <h:outputText value="#{func.CPF}"/>
                                     </p:column>
+                                    <p:column headerText="Email" sortBy="#{func.email}">
+                                        <h:outputText value="#{func.email}"/>
+                                    </p:column>
                                     <p:column headerText="Endereço" sortBy="#{func.endereco}">
                                         <h:outputText value="#{func.endereco}"/>
                                     </p:column>
-                                    <p:column headerText="Telefone" sortBy="#{func.telefone}">
-                                        <h:outputText value="#{func.telefone}"/>
+                                    <p:column headerText="Telefone Celular" sortBy="#{func.telefoneCel}">
+                                        <h:outputText value="#{func.telefoneCel}"/>
+                                    </p:column>
+                                    <p:column headerText="Telefone Residencial" sortBy="#{func.telefoneRes}">
+                                        <h:outputText value="#{func.telefoneRes}"/>
                                     </p:column>
                                     <p:column headerText="Data de Nascimento" sortBy="#{func.data_nascimento}">
                                         <h:outputText value="#{func.data_nascimento}"/>
@@ -93,9 +92,6 @@
                 <h:outputText value="Deseja mesmo cancelar o funcionário:"/>
                 <p:outputPanel id="funcInfo" rendered="#{not empty funcionarioController.funcionarioSelecionado}">
                     <p:panelGrid columns="2">
-                        <h:outputText value="ID:    "/>
-                        <h:outputText value="#{funcionarioController.funcionarioSelecionado.id}"/>
-
                         <h:outputText value="Nome:    "/>
                         <h:outputText value="#{funcionarioController.funcionarioSelecionado.nome}"/>
 
@@ -112,32 +108,32 @@
             <p:dialog header="Editar Funcionário" widgetVar="editFunc" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel rendered="#{not empty funcionarioController.funcionarioSelecionado}">
                     <p:panelGrid columns="2">
-                        <h:outputText value="ID:"/>
-                        <p:inputText value="#{funcionarioController.funcionarioSelecionado.id}" disabled="true"/>
-
                         <h:outputText value="Nome:"/>
-                        <p:inputText value="#{funcionarioController.funcionarioSelecionado.nome}"/>
+                        <p:inputText value="#{funcionarioController.funcionarioSelecionado.nome}" required="true" requiredMessage="Nome Obrigatório!"/>
 
                         <h:outputLabel value="CPF"/>
-                        <p:inputMask mask="999.999.999-99" value="#{funcionarioController.funcionarioSelecionado.CPF}" required="true" requiredMessage="CPF Obrigatório"/>
+                        <p:inputMask mask="99999999999" value="#{funcionarioController.funcionarioSelecionado.CPF}" required="true" requiredMessage="CPF Obrigatório!" disabled="true"/>
+
+                        <h:outputLabel value="Email"/>
+                        <p:inputText value="#{funcionarioController.funcionarioSelecionado.email}" required="true" requiredMessage="Email Obrigatório!" />
 
                         <h:outputLabel value="Endereço"/>
-                        <p:inputText value="#{funcionarioController.funcionarioSelecionado.endereco}"/>
+                        <p:inputText value="#{funcionarioController.funcionarioSelecionado.endereco}" required="true" requiredMessage="Endereço Obrigatório!" />
 
-                        <h:outputLabel value="Telefone"/>
-                        <p:inputMask mask="(99)99999-9999" value="#{funcionarioController.funcionarioSelecionado.telefone}"/>
+                        <h:outputLabel value="Telefone Celular"/>
+                        <p:inputMask mask="(99)999999999" value="#{funcionarioController.funcionarioSelecionado.telefoneCel}" required="true" requiredMessage="Telefone Celular Obrigatório!"/>
+
+                        <h:outputLabel value="Telefone Residencial"/>
+                        <p:inputMask mask="(99)999999999" value="#{funcionarioController.funcionarioSelecionado.telefoneRes}"/>
 
                         <h:outputLabel value="Data de Nascimento"/>
                         <p:calendar value="#{funcionarioController.funcionarioSelecionado.data_nascimento}" required="true" requiredMessage="Data de nascimento Obrigatório"/>
 
-                        <h:outputLabel value="Login"/>
-                        <p:inputText value="#{funcionarioController.funcionarioSelecionado.login}"/>
-
                         <h:outputLabel value="Alterar Senha"/>
-                        <p:password id="pwd1" match="pwd2" feedback="true" value="#{funcionarioController.funcionarioSelecionado.senha}"/>
+                        <p:password id="pwd1" match="pwd2" feedback="true" value="#{funcionarioController.funcionarioSelecionado.senha}" required="true" requiredMessage="Senha Obrigatório"/>
 
                         <h:outputLabel value="Confirmar Senha"/>
-                        <p:password id="pwd2" feedback="true" value="#{funcionarioController.funcionarioSelecionado.senha}"/>
+                        <p:password id="pwd2" feedback="true" value="#{funcionarioController.funcionarioSelecionado.senha}" required="true" requiredMessage="Confirmação de Senha Obrigatório"/>
 
                         <h:outputLabel value="Cargo"/>
                         <p:selectOneMenu id="select" value="#{funcionarioController.funcionarioSelecionado.status}">

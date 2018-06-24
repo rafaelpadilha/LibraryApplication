@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.LoginModel;
 import util.ConnectionFactory;
 import util.exception.ErroSistema;
@@ -14,7 +12,7 @@ import util.exception.ErroSistema;
  *
  * @author Rafael Padilha                 <github.com/rafaelpadilha>
  */
-public class LoginDAO {
+public class LoginDAO{
 
     public int autenticar(LoginModel login) throws ErroSistema {
         String sql = "select autentica(?,?)";

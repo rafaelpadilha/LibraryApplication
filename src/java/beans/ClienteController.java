@@ -1,6 +1,7 @@
 package beans;
 
 import dao.ClienteDAO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -12,7 +13,7 @@ import util.exception.ErroSistema;
 
 @ManagedBean
 @SessionScoped
-public class ClienteController {
+public class ClienteController implements Serializable{
     private Cliente cliente = new Cliente();
     private List<Cliente> clientes = new ArrayList<>();
     private ClienteDAO cdao = new ClienteDAO();

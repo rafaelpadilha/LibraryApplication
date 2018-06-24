@@ -8,22 +8,30 @@ import java.util.Objects;
  * @author Rafael Padilha                 <github.com/rafaelpadilha>
  */
 public class Funcionario {
-    private Integer id;
     private String nome;
     private String CPF;
+    private String email;
     private String endereco;
-    private String telefone;
+    private String telefoneCel;
+    private String telefoneRes;
     private Date data_nascimento;
     private Integer status;
-    private String login;
     private String senha;
 
-    public Integer getId() {
-        return id;
+    public String getTelefoneRes() {
+        return telefoneRes;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTelefoneRes(String telefoneRes) {
+        this.telefoneRes = telefoneRes;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNome() {
@@ -50,12 +58,12 @@ public class Funcionario {
         this.endereco = endereco;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getTelefoneCel() {
+        return telefoneCel;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setTelefoneCel(String telefoneCel) {
+        this.telefoneCel = telefoneCel;
     }
 
     public Date getData_nascimento() {
@@ -74,14 +82,6 @@ public class Funcionario {
         this.status = status;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -92,8 +92,8 @@ public class Funcionario {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.nome);
         return hash;
     }
 
@@ -109,11 +109,13 @@ public class Funcionario {
             return false;
         }
         final Funcionario other = (Funcionario) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         return true;
     }
+
+    
     
     
 }

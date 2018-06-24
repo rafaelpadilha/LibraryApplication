@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,30 +16,33 @@ import util.exception.ErroSistema;
  *
  * @author Rafael Padilha                 <github.com/rafaelpadilha>
  */
+
+/*
+
+create procedure inserir_funcionario(in CPF_ varchar(11), in nome_ varchar(100), in email_ varchar(64) , in endereco_ varchar(200),
+ in telefone_cel_ varchar(20), in telefone_res_ varchar(20), in data_nascimento_ date, in status_ int(2), in senha_ varchar(10))
+
+CPF     Nome    Email   Endereco    Telefone_cel    Telefone_res    Data_nascimento     Status      Senha
+1       2       3       4           5               6               7                   8           9
+*/
 public class FuncionarioDAO {
 
     public void salvar(Funcionario f) throws ErroSistema {
-        String sql = "insert into pessoas(nome,cpf,endereco,telefone,data_nascimento,status) values(?,?,?,?,?,?)";
-        Integer id;
+        String sql = "call inserir_funcionario(?,?,?,?,?,?,?,?,?)";
         try {
             Connection conexao = ConnectionFactory.getConexao();
-            PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setString(1, f.getNome());
-            ps.setString(2, f.getCPF());
-            ps.setString(3, f.getEndereco());
-            ps.setString(4, f.getTelefone());
-            ps.setDate(5, new Date(f.getData_nascimento().getTime()));
-            ps.setInt(6, f.getStatus());
-            ps.execute();
-            ps = conexao.prepareStatement("SELECT LAST_INSERT_ID()");
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            id = rs.getInt(1);
-            ps = conexao.prepareStatement("insert into login values(?,?,?)");
-            ps.setInt(1, id);
-            ps.setString(2, f.getLogin());
-            ps.setString(3, f.getSenha());
-            ps.execute();
+            CallableStatement cs = conexao.prepareCall(sql);
+            cs.setString(1, f.getCPF());
+            cs.setString(2, f.getNome());
+            cs.setString(3, f.getEmail());
+            cs.setString(4, f.getEndereco());
+            cs.setString(5, f.getTelefoneCel());
+            cs.setString(6, f.getTelefoneRes());
+            cs.setDate(7, new Date(f.getData_nascimento().getTime()));
+            cs.setInt(8, f.getStatus());
+            cs.setString(9, f.getSenha());
+            cs.execute();
+            ConnectionFactory.fechaConexao();
         } catch (ErroSistema ex) {
             throw new ErroSistema("Erro ao cadastrar funcionário!", ex);
         } catch (SQLException ex) {
@@ -48,35 +52,26 @@ public class FuncionarioDAO {
 
     //sehna
     public void alterar(Funcionario f) throws ErroSistema{
-        String sql = "update funcionarios set nome=?, cpf=?, endereco=?, telefone=?, data_nascimento=?, status=? where id=?";
-        String sql2;
-        if (f.getSenha().isEmpty()) {
-            sql2 = "update login set login=? where id_func=?";
-        } else {
-            sql2 = "update login set login=?, sehna=" + f.getSenha() + " where id_func = ?";
-        }
+        String sql = "update funcionario set nome=?, email=?, endereco=?, telefone_cel=?, telefone_res=?, data_nascimento=?, status=? where cpf=?";
+        
 
         try {
             Connection conexao = ConnectionFactory.getConexao();
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1,f.getNome());
-            ps.setString(2,f.getCPF());
+            ps.setString(2,f.getEmail());
             ps.setString(3,f.getEndereco());
-            ps.setString(4,f.getTelefone());
-            ps.setDate(5, new Date(f.getData_nascimento().getTime()));
-            ps.setInt(6, f.getStatus());
-            ps.setInt(7, f.getId());
-            ps.execute();
-            System.out.println("SQL:" + f.getStatus());
-            ps = conexao.prepareStatement(sql2);
-            ps.setString(1, f.getLogin());
-            ps.setInt(2, f.getId());
+            ps.setString(4,f.getTelefoneCel());
+            ps.setString(5,f.getTelefoneRes());
+            ps.setDate(6, new Date(f.getData_nascimento().getTime()));
+            ps.setInt(7, f.getStatus());
+            ps.setString(8, f.getCPF());
             ps.execute();
             ConnectionFactory.fechaConexao();
         }catch (ErroSistema ex) {
-            throw new ErroSistema("Erro ao cadastrar funcionário!", ex);
+            throw new ErroSistema("Erro ao editar funcionário!", ex);
         } catch (SQLException ex) {
-            throw new ErroSistema("Erro ao cadastrar funcionário!", ex);
+            throw new ErroSistema("Erro ao editar funcionário!", ex);
         }
     }
 
@@ -84,9 +79,9 @@ public class FuncionarioDAO {
         List<Funcionario> funcionarios = new ArrayList<>();
         String sql;
         if (txt.isEmpty()) {
-            sql = "select * from funcionarios";
+            sql = "select * from funcionarios_ativos";
         } else {
-            sql = "select * from funcionarios where " + op + " like \'%" + txt + "%\'";
+            sql = "select * from funcionarios_ativos where " + op + " like \'%" + txt + "%\'";
         }
         try {
             Connection conexao = ConnectionFactory.getConexao();
@@ -94,14 +89,15 @@ public class FuncionarioDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Funcionario f = new Funcionario();
-                f.setId(rs.getInt("id"));
+                f.setCPF(rs.getString("CPF"));
                 f.setNome(rs.getString("nome"));
-                f.setCPF(rs.getString("cpf"));
+                f.setEmail(rs.getString("email"));
                 f.setEndereco(rs.getString("endereco"));
-                f.setTelefone(rs.getString("telefone"));
+                f.setTelefoneCel(rs.getString("telefone_cel"));
+                f.setTelefoneRes(rs.getString("telefone_res"));
                 f.setData_nascimento(rs.getDate("data_nascimento"));
                 f.setStatus(rs.getInt("status"));
-                f.setLogin(rs.getString("login"));
+                f.setSenha(rs.getString("senha"));
                 funcionarios.add(f);
             }
             ConnectionFactory.fechaConexao();
@@ -113,7 +109,7 @@ public class FuncionarioDAO {
         }
     }
 
-    public void deletar() {
+    public void deletar(Funcionario f) {
 
     }
 }
