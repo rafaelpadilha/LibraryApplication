@@ -1,12 +1,16 @@
 package beans;
 
+import dao.EmprestimoDAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Emprestimo;
+import util.exception.ErroSistema;
 
 /**
  *
@@ -15,25 +19,40 @@ import model.Emprestimo;
 @SessionScoped
 @ManagedBean
 public class EmprestimoController {
+
     private Emprestimo emprestimo = new Emprestimo();
     private List<Emprestimo> emprestimos = new ArrayList<>();
     private Emprestimo emprestimoSelecionado = new Emprestimo();
+    private EmprestimoDAO edao = new EmprestimoDAO();
     private String opBusca = "";
-    private String txtBusca;
-    
-    public void emprestar(){
+    private String txtBusca = "";
+
+    public void emprestar() {
+        try {
+            edao.salvar(emprestimo);
+            adicionarMensagem("Emprestimo registrado com sucessso!", "", FacesMessage.SEVERITY_INFO);
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
+    public void listar() {
+        try {
+            setEmprestimos(edao.buscar(txtBusca, opBusca));
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
+    public void cancelar() {
         //TODO
     }
-    
-    public void cancelar(){
+
+    public void renovar() {
         //TODO
     }
-    
-    public void renovar(){
-        //TODO
-    }
-    
-    public void devover(){
+
+    public void devover() {
         //TODO
     }
 
@@ -79,7 +98,7 @@ public class EmprestimoController {
 
     public EmprestimoController() {
     }
-    
+
     public void adicionarMensagem(String sumario, String detalhe, FacesMessage.Severity tipoErro) {
         FacesContext contex = FacesContext.getCurrentInstance();
         FacesMessage mensage = new FacesMessage(tipoErro, sumario, detalhe);

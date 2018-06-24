@@ -9,20 +9,26 @@
         <h:form>
             <p:fieldset legend="Cadastro Cliente">
                 <p:panelGrid columns="2" layout="grid" style="width: 100%" styleClass="ui-noborder">
-                    <h:outputLabel value="Nome"></h:outputLabel>
-                    <p:inputText value="#{clienteController.cliente.nome}" required="true" requiredMessage="Nome Obrigatório"></p:inputText>
+                    <h:outputLabel value="Nome"/>
+                    <p:inputText value="#{clienteController.cliente.nome}" required="true" requiredMessage="Nome obrigatório!" maxlength="100"/>
 
-                    <h:outputLabel value="CPF"></h:outputLabel>
-                    <p:inputMask mask="999.999.999-99" value="#{clienteController.cliente.CPF}" required="true" requiredMessage="CPF Obrigatório"></p:inputMask>
+                    <h:outputLabel value="CPF"/>
+                    <p:inputMask mask="99999999999" value="#{clienteController.cliente.CPF}" required="true" requiredMessage="CPF obrigatório!"/>
 
-                    <h:outputLabel value="Endereço"></h:outputLabel>
-                    <p:inputText value="#{clienteController.cliente.endereco}"></p:inputText>
+                    <h:outputLabel value="Email"/>
+                    <p:inputText value="#{clienteController.cliente.email}" required="true" requiredMessage="Email obrigatório!" maxlength="64"/>
 
-                    <h:outputLabel value="Telefone"></h:outputLabel>
-                    <p:inputMask mask="(99)99999-9999" value="#{clienteController.cliente.telefone}"></p:inputMask>
+                    <h:outputLabel value="Endereço"/>
+                    <p:inputText value="#{clienteController.cliente.endereco}" required="true" requiredMessage="Endereço obrigatório!" maxlength="200"/>
 
-                    <h:outputLabel value="Data de Nascimento"></h:outputLabel>
-                    <p:calendar value="#{clienteController.cliente.data_nascimento}" required="true" requiredMessage="Data de nascimento Obrigatório"></p:calendar>
+                    <h:outputLabel value="Telefone Celular"/>
+                    <p:inputMask mask="(99)999999999" value="#{clienteController.cliente.telefoneCel}" required="true" requiredMessage="Telefone Celular obrigatório!" maxlength="20"/>
+
+                    <h:outputLabel value="Telefone Residencial"/>
+                    <p:inputMask mask="(99)999999999" value="#{clienteController.cliente.telefoneRes}" maxlength="20"/>
+
+                    <h:outputLabel value="Data de Nascimento"/>
+                    <p:calendar value="#{clienteController.cliente.data_nascimento}" required="true" requiredMessage="Data de nascimento obrigatória!"/>
 
                     <h:commandButton value="Cancelar" action="/app/index.jsf" style="height: 50px;width: 200px;" immediate="true"/>
                     <h:commandButton value="Cadastrar" action="#{clienteController.cadastrar()}" style="height: 50px;width: 200px;;background-color: greenyellow"/>

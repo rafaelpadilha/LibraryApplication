@@ -42,7 +42,7 @@ public class ClienteController {
     
     public void deletar(Cliente c){
         try {
-            cdao.deletar(c);
+            cdao.cancelar(c);
             adicionarMensagem("Cliente Cancelado", "", FacesMessage.SEVERITY_INFO);
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);

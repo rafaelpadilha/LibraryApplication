@@ -23,10 +23,9 @@
                             </p:inputText>
                         </p:column>
                         <p:column>
-                            <p:selectOneMenu style="width: 88%" value="#{clienteController.opBusca}">
+                            <p:selectOneMenu style="width: 88%" value="#{clienteController.opBusca}" >
+                                <f:selectItem itemLabel="CPF" itemValue="cpf" noSelectionOption="true"></f:selectItem>
                                 <f:selectItem itemLabel="Nome" itemValue="nome"></f:selectItem>
-                                <f:selectItem itemLabel="ID" itemValue="id"></f:selectItem>
-                                <f:selectItem itemLabel="CPF" itemValue="cpf"></f:selectItem>
                                 <p:ajax update="@form" ></p:ajax>
                             </p:selectOneMenu>
                         </p:column>
@@ -61,26 +60,26 @@
                                             </p:row>
                                         </p:panelGrid>
                                     </p:column>
-                                    <p:column headerText="ID" sortBy="#{cliente.id}">
-                                        <h:outputText value="#{cliente.id}"></h:outputText>
+                                    <p:column headerText="CPF" sortBy="#{cliente.CPF}">
+                                        <h:outputText value="#{cliente.CPF}"></h:outputText>
                                     </p:column>
                                     <p:column headerText="Nome" sortBy="#{cliente.nome}">
                                         <h:outputText value="#{cliente.nome}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="CPF" sortBy="#{cliente.CPF}">
-                                        <h:outputText value="#{cliente.CPF}"></h:outputText>
+                                    <p:column headerText="Email" sortBy="#{cliente.email}">
+                                        <h:outputText value="#{cliente.email}"></h:outputText>
                                     </p:column>
                                     <p:column headerText="Endereço" sortBy="#{cliente.endereco}">
                                         <h:outputText value="#{cliente.endereco}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Telefone" sortBy="#{cliente.telefone}">
-                                        <h:outputText value="#{cliente.telefone}"></h:outputText>
+                                    <p:column headerText="Telefone Cel" sortBy="#{cliente.telefoneCel}">
+                                        <h:outputText value="#{cliente.telefoneCel}"></h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Telefone Res" sortBy="#{cliente.telefoneRes}">
+                                        <h:outputText value="#{cliente.telefoneRes}"></h:outputText>
                                     </p:column>
                                     <p:column headerText="Data de Nascimento" sortBy="#{cliente.data_nascimento}">
                                         <h:outputText value="#{cliente.data_nascimento}"></h:outputText>
-                                    </p:column>
-                                    <p:column headerText="Status" sortBy="#{cliente.status}">
-                                        <h:outputText value="#{cliente.status}"></h:outputText>
                                     </p:column>
                                 </p:dataTable>
                             </p:column>
@@ -97,14 +96,14 @@
                 <h:outputText value="Deseja mesmo cancelar o cliente:"></h:outputText>
                 <p:outputPanel id="clienteInfo" rendered="#{not empty clienteController.clienteSelecionado}">
                     <p:panelGrid columns="2">
-                        <h:outputText value="ID:    "></h:outputText>
-                        <h:outputText value="#{clienteController.clienteSelecionado.id}"></h:outputText>
-
                         <h:outputText value="Nome:    "></h:outputText>
                         <h:outputText value="#{clienteController.clienteSelecionado.nome}"></h:outputText>
 
                         <h:outputText value="CPF:    "></h:outputText>
                         <h:outputText value="#{clienteController.clienteSelecionado.CPF}"></h:outputText>
+
+                        <h:outputText value="Email:    "></h:outputText>
+                        <h:outputText value="#{clienteController.clienteSelecionado.email}"></h:outputText>
 
                         <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{clienteController.deletar(clienteController.clienteSelecionado)}" onclick="PF('delCliente').hide();update('@form')"></p:commandButton>
                         <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('delCliente').hide()"></p:commandButton>
@@ -116,20 +115,24 @@
             <p:dialog header="Editar Cliente" widgetVar="editCliente" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel rendered="#{not empty clienteController.clienteSelecionado}">
                     <p:panelGrid columns="2">
-                        <h:outputText value="ID:"></h:outputText>
-                        <p:inputText value="#{clienteController.clienteSelecionado.id}" disabled="true"></p:inputText>
 
                         <h:outputText value="Nome:"></h:outputText>
-                        <p:inputText value="#{clienteController.clienteSelecionado.nome}"></p:inputText>
+                        <p:inputText value="#{clienteController.clienteSelecionado.nome}" required="true" requiredMessage="Nome Obrigatório"></p:inputText>
 
                         <h:outputLabel value="CPF"></h:outputLabel>
-                        <p:inputMask mask="999.999.999-99" value="#{clienteController.clienteSelecionado.CPF}" required="true" requiredMessage="CPF Obrigatório"></p:inputMask>
+                        <p:inputMask mask="99999999999" value="#{clienteController.clienteSelecionado.CPF}" required="true" requiredMessage="CPF Obrigatório" disabled="true"></p:inputMask>
 
                         <h:outputLabel value="Endereço"></h:outputLabel>
-                        <p:inputText value="#{clienteController.clienteSelecionado.endereco}"></p:inputText>
+                        <p:inputText value="#{clienteController.clienteSelecionado.endereco}" required="true" requiredMessage="Endereço Obrigatório"></p:inputText>
 
-                        <h:outputLabel value="Telefone"></h:outputLabel>
-                        <p:inputMask mask="(99)99999-9999" value="#{clienteController.clienteSelecionado.telefone}"></p:inputMask>
+                        <h:outputLabel value="Email"></h:outputLabel>
+                        <p:inputText value="#{clienteController.clienteSelecionado.email}" required="true" requiredMessage="Email Obrigatório"></p:inputText>
+
+                        <h:outputLabel value="Telefone Celular"></h:outputLabel>
+                        <p:inputMask mask="(99)999999999" value="#{clienteController.clienteSelecionado.telefoneCel}" required="true" requiredMessage="Telefone Celular Obrigatório"></p:inputMask>
+                        
+                        <h:outputLabel value="Telefone Residencial"></h:outputLabel>
+                        <p:inputMask mask="(99)999999999" value="#{clienteController.clienteSelecionado.telefoneRes}"></p:inputMask>
 
                         <h:outputLabel value="Data de Nascimento"></h:outputLabel>
                         <p:calendar value="#{clienteController.clienteSelecionado.data_nascimento}" required="true" requiredMessage="Data de nascimento Obrigatório"></p:calendar>

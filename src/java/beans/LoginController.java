@@ -1,12 +1,16 @@
 package beans;
 
+import dao.LoginDAO;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import model.LoginModel;
+import util.exception.ErroSistema;
 
 /**
  *
@@ -16,21 +20,28 @@ import model.LoginModel;
 @SessionScoped
 public class LoginController implements Serializable{
     private LoginModel login;
+    private LoginDAO ldao = new LoginDAO();
+
 
     public LoginController() {
         login = new LoginModel();
     }
     
     public String logarNoSistema(){
-        if(login.getLogin().equals("admin") && login.getSenha().equals("admin")){
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            session.setAttribute("usuario", login);
-            return "/app/index?faces-redirect=true";
-        }else{
-            adicionarMensagem("Falha no login!", "Verifique se as informações estão corretas", FacesMessage.SEVERITY_WARN);
-            //return "/security/login?faces-redirect=true";
-            return "";
+        try {
+            if(ldao.autenticar(login) == 1){
+                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+                session.setAttribute("usuario", login);
+                return "/app/index?faces-redirect=true";
+            }else{
+                adicionarMensagem("Falha no login!", "Verifique se as informações estão corretas", FacesMessage.SEVERITY_WARN);
+                //return "/security/login?faces-redirect=true";
+                return "";
+            }
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+        return "";
     }
     
     public void adicionarMensagem(String sumario, String detalhe, FacesMessage.Severity tipoErro) {
@@ -53,5 +64,12 @@ public class LoginController implements Serializable{
         this.login = login;
     }
     
+    public LoginDAO getLdao() {
+        return ldao;
+    }
+
+    public void setLdao(LoginDAO ldao) {
+        this.ldao = ldao;
+    }
     
 }

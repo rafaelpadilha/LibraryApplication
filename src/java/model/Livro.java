@@ -6,7 +6,8 @@ public class Livro {
     private String isbn;
     private String titulo;
     private String autor;
-    private Integer quantidade;
+    private Integer quantidade_exemplares;
+    private Integer quantidade_disponivel;
     private String descricao;
 
     public String getIsbn() {
@@ -33,12 +34,20 @@ public class Livro {
         this.autor = autor;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
+    public Integer getQuantidade_exemplares() {
+        return quantidade_exemplares;
     }
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidade_exemplares(Integer quantidade_exemplares) {
+        this.quantidade_exemplares = quantidade_exemplares;
+    }
+
+    public Integer getQuantidade_disponivel() {
+        return quantidade_disponivel;
+    }
+
+    public void setQuantidade_disponivel(Integer quantidade_disponivel) {
+        this.quantidade_disponivel = quantidade_disponivel;
     }
 
     public String getDescricao() {

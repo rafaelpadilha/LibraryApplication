@@ -8,21 +8,14 @@ import java.util.Objects;
  * @author Rafael Padilha                 <github.com/rafaelpadilha>
  */
 public class Cliente {
-    private Integer id;
     private String nome;
     private String CPF;
+    private String email;
     private String endereco;
-    private String telefone;
+    private String telefoneCel;
+    private String telefoneRes;
     private Date data_nascimento;
     private Integer status;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -48,12 +41,12 @@ public class Cliente {
         this.endereco = endereço;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getTelefoneCel() {
+        return telefoneCel;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setTelefoneCel(String telefoneCel) {
+        this.telefoneCel = telefoneCel;
     }
 
     public Date getData_nascimento() {
@@ -72,10 +65,26 @@ public class Cliente {
         this.status = status;
     }
 
+    public String getTelefoneRes() {
+        return telefoneRes;
+    }
+
+    public void setTelefoneRes(String telefoneRes) {
+        this.telefoneRes = telefoneRes;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.CPF);
         return hash;
     }
 
@@ -91,11 +100,12 @@ public class Cliente {
             return false;
         }
         final Cliente other = (Cliente) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.CPF, other.CPF)) {
             return false;
         }
         return true;
     }
+
     
     
 }

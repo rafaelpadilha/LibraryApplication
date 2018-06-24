@@ -15,7 +15,7 @@
                     <p:inputText  value="#{emprestimoController.emprestimo.ISBN}" required="true" requiredMessage="ISBN Obrigatório" maxlength="20"></p:inputText>
 
                     <h:outputLabel value="CPF"></h:outputLabel>
-                    <p:inputText  value="#{emprestimoController.emprestimo.CPF}" required="true" requiredMessage="CPF Obrigatório" maxlength="20"></p:inputText>
+                    <p:inputText  value="#{emprestimoController.emprestimo.CPF}" required="true" requiredMessage="CPF Obrigatório" maxlength="11"></p:inputText>
                     
                     <h:commandButton value="Cancelar" action="/app/index.jsf" immediate="true" style="height: 50px;width: 200px;"/>
                     <h:commandButton value="Cadastrar" action="#{emprestimoController.emprestar()}" style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>

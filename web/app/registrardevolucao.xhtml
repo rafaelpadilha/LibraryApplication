@@ -17,23 +17,60 @@
                             <p:outputLabel value="Pesquisar:"/>
                         </p:column>
                         <p:column>
-                            <p:inputText id="filtrar" style="width: 98%;" value="#{emprestimoController.txtBusca}" onkeydown="#{livroController.listar()}">
+                            <p:inputText id="filtrar" style="width: 98%;" value="#{emprestimoController.txtBusca}" onkeydown="#{emprestimoController.listar()}">
                                 <p:ajax event="keyup" update="@form" />
                             </p:inputText>
                         </p:column>
                         <p:column>
                             <p:selectOneMenu style="width: 88%" value="#{emprestimoController.opBusca}">
+                                <f:selectItem itemLabel="ID" itemValue="id"/>
                                 <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                                <f:selectItem itemLabel="CPF" itemValue="CPF"/>
+                                <f:selectItem itemLabel="Titulo" itemValue="titulo"/>
+                                <f:selectItem itemLabel="ISBN" itemValue="isbn"/>
+                                <f:selectItem itemLabel="ISBN" itemValue="isbn"/>
                                 <p:ajax update="@form" />
                             </p:selectOneMenu>
                         </p:column>
                         <p:row>
                             <h:form id="dados">
-                                <p:dataTable var="emp" value="#{emprestimoController.emprestimos}" style="width: 100%">
-                                    <p:column headerText="VALORES">
-                                        <h:outputText value="DOS EMPRESTIMOS"/>
-                                    </p:column>
-                                </p:dataTable>
+                                <p:column colspan="3">
+                                    <p:dataTable var="emp" value="#{emprestimoController.emprestimos}" style="width: 100%">
+                                        <p:column headerText="Opções">
+                                            <p:panelGrid>
+                                                <p:row>
+                                                    <p:column>
+                                                        OP
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:column>
+                                        <p:column headerText="ID">
+                                            <h:outputText value="#{emp.id}"/>
+                                        </p:column>
+                                        <p:column headerText="Nome">
+                                            <h:outputText value="#{emp.nome}"/>
+                                        </p:column>
+                                        <p:column headerText="CPF">
+                                            <h:outputText value="#{emp.CPF}"/>
+                                        </p:column>
+                                        <p:column headerText="Titulo do Livro">
+                                            <h:outputText value="#{emp.titulo}"/>
+                                        </p:column>
+                                        <p:column headerText="ISBN">
+                                            <h:outputText value="#{emp.ISBN}"/>
+                                        </p:column>
+                                        <p:column headerText="Data Emprestimo">
+                                            <h:outputText value="#{emp.data_emprestimo}"/>
+                                        </p:column>
+                                        <p:column headerText="Data Prevista">
+                                            <h:outputText value="#{emp.data_prevista}"/>
+                                        </p:column>
+                                        <p:column headerText="Valor multa">
+                                            <h:outputText value="#{emp.multa}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
                             </h:form>
                         </p:row>
                     </p:row>
