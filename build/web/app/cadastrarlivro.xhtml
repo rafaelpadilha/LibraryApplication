@@ -15,16 +15,16 @@
                     <p:inputText  value="#{livroController.livro.isbn}" required="true" requiredMessage="ISBN Obrigatório" maxlength="20"></p:inputText>
 
                     <h:outputLabel value="Título"></h:outputLabel>
-                    <p:inputText value="#{livroController.livro.titulo}" required="true" requiredMessage="Título Obrigatório" maxlength="30"></p:inputText>
+                    <p:inputText value="#{livroController.livro.titulo}" required="true" requiredMessage="Título Obrigatório" maxlength="100"></p:inputText>
                     
                     <h:outputLabel value="Autor"></h:outputLabel>
-                    <p:inputText value="#{livroController.livro.autor}" required="true" requiredMessage="Autor Obrigatório" maxlength="20"></p:inputText>
+                    <p:inputText value="#{livroController.livro.autor}" required="true" requiredMessage="Autor Obrigatório" maxlength="100"></p:inputText>
                     
                     <h:outputLabel value="Quanditade"></h:outputLabel>
-                    <p:inputNumber padControl="false" value="#{livroController.livro.quantidade}" required="true" requiredMessage="ISBN Obrigatório" minValue="0"></p:inputNumber>
+                    <p:inputNumber padControl="false" value="#{livroController.livro.quantidade_exemplares}" required="true" requiredMessage="ISBN Obrigatório" minValue="1"></p:inputNumber>
                     
                     <h:outputLabel value="Descrição"></h:outputLabel>
-                    <p:inputTextarea value="#{livroController.livro.descricao}" maxlength="140"></p:inputTextarea>
+                    <p:inputTextarea value="#{livroController.livro.descricao}" maxlength="500"></p:inputTextarea>
 
                     <h:commandButton value="Cancelar" action="/app/index.jsf" immediate="true" style="height: 50px;width: 200px;"/>
                     <h:commandButton value="Cadastrar" action="#{livroController.cadastrar()}" style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
