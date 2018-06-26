@@ -3,8 +3,6 @@ package beans;
 import dao.EmprestimoDAO;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,6 +20,7 @@ public class EmprestimoController {
 
     private Emprestimo emprestimo = new Emprestimo();
     private List<Emprestimo> emprestimos = new ArrayList<>();
+    private List<Emprestimo> multas = new ArrayList<>();
     private Emprestimo emprestimoSelecionado = new Emprestimo();
     private EmprestimoDAO edao = new EmprestimoDAO();
     private String opBusca = "";
@@ -29,9 +28,15 @@ public class EmprestimoController {
 
     public void emprestar() {
         try {
-            edao.salvar(emprestimo);
-            emprestimo = new Emprestimo();
-            adicionarMensagem("Emprestimo registrado com sucessso!", "", FacesMessage.SEVERITY_INFO);
+            if (edao.clienteBloqueado(this.emprestimo.getCPF())) {
+                adicionarMensagem("Cliente Bloqueado!", "Novo empréstimo não será possível", FacesMessage.SEVERITY_WARN);
+
+            } else {
+
+                edao.salvar(emprestimo);
+                emprestimo = new Emprestimo();
+                adicionarMensagem("Emprestimo registrado com sucessso!", "", FacesMessage.SEVERITY_INFO);
+            }
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
@@ -47,7 +52,7 @@ public class EmprestimoController {
 
     public void deletar() {
         try {
-            edao.deletar(emprestimoSelecionado);
+            this.edao.deletar(this.emprestimoSelecionado);
             adicionarMensagem("Emprestimo deletado com sucessso!", "", FacesMessage.SEVERITY_INFO);
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
@@ -55,11 +60,11 @@ public class EmprestimoController {
     }
 
     public void renovar() {
-        try{
-            Integer result = edao.renovar(emprestimoSelecionado);
-            if(result < 0){
+        try {
+            Integer result = this.edao.renovar(this.emprestimoSelecionado);
+            if (result < 0) {
                 adicionarMensagem("Não foi possível renovar!", "Empréstimo Atrasado", FacesMessage.SEVERITY_WARN);
-            }else{
+            } else {
                 adicionarMensagem("Empréstimo renovado!", "", FacesMessage.SEVERITY_INFO);
             }
         } catch (ErroSistema ex) {
@@ -69,12 +74,29 @@ public class EmprestimoController {
 
     public void devover() {
         try {
-            Integer result = edao.devolver(emprestimoSelecionado);
-            if(result < 0){
+            Integer result = this.edao.devolver(this.emprestimoSelecionado);
+            if (result < 0) {
                 adicionarMensagem("Devolução atrasada registrada!", "Verificar Multas", FacesMessage.SEVERITY_WARN);
-            }else{
+            } else {
                 adicionarMensagem("Devolução registrada!", "Nenhuma pendência!", FacesMessage.SEVERITY_INFO);
             }
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
+    public void listarMultas(String cpf) {
+        try {
+            this.setMultas(this.edao.multas(cpf));
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+
+    public void pagarMulta(Emprestimo emp) {
+        try {
+            edao.pagarMulta(emp);
+            adicionarMensagem("Multa Paga!", "", FacesMessage.SEVERITY_INFO);
         } catch (ErroSistema ex) {
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
@@ -118,6 +140,22 @@ public class EmprestimoController {
 
     public void setTxtBusca(String txtBusca) {
         this.txtBusca = txtBusca;
+    }
+
+    public List<Emprestimo> getMultas() {
+        return multas;
+    }
+
+    public void setMultas(List<Emprestimo> multas) {
+        this.multas = multas;
+    }
+
+    public EmprestimoDAO getEdao() {
+        return edao;
+    }
+
+    public void setEdao(EmprestimoDAO edao) {
+        this.edao = edao;
     }
 
     public EmprestimoController() {

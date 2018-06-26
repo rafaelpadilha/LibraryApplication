@@ -3,12 +3,16 @@
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-             template="template.xhtml">
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
 
     <h1 style="color: white">
-    Usuário autenticado #{loginController.login.login}!
-        
+        Bem vindo #{loginController.login.login}!
+
     </h1>
-        
+    <h:form>
+        <p:commandButton value="Atualizar Status Clientes" action="#{clienteController.attStatus()}"/>
+    </h:form>
+
 </ui:decorate>
 

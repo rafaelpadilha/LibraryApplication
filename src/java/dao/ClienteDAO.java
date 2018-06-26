@@ -21,8 +21,7 @@ import util.exception.ErroSistema;
 public class ClienteDAO {
 
     public void salvar(Cliente c) throws ErroSistema {
-        //(in CPF_ varchar(11), in nome_ varchar(100), in email_ varchar(64) , in endereco_ varchar(200),
-        //in telefone_cel_ varchar(20), in telefone_res_ varchar(20), in data_nascimento_ date, in status_ int(2))
+
         String sql = "{call inserir_cliente(?,?,?,?,?,?,?,2)}";
         try {
             Connection conexao = ConnectionFactory.getConexao();
@@ -54,7 +53,6 @@ public class ClienteDAO {
         try {
             Connection conexao = ConnectionFactory.getConexao();
             PreparedStatement ps = conexao.prepareStatement(sql);
-            System.out.println(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Cliente c = new Cliente();
@@ -112,4 +110,22 @@ public class ClienteDAO {
             throw new ErroSistema("Erro ao cancelar cliente!(SQLE)", ex);
         }
     }
+
+    public void atualizaStatus() throws ErroSistema {
+        String sql = "call atualizaStatusCliente()";
+
+        try {
+            Connection conexao = ConnectionFactory.getConexao();
+            CallableStatement cs = conexao.prepareCall(sql);
+            cs.execute();
+            ConnectionFactory.fechaConexao();
+        } catch (ErroSistema ex) {
+            throw new ErroSistema("Erro ao atualizar status dos clientes!", ex);
+        } catch (SQLException ex) {
+            throw new ErroSistema("Erro ao atualizar status dos clientes!", ex);
+        }
+
+    }
+
+    
 }

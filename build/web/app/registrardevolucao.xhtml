@@ -18,7 +18,7 @@
                         </p:column>
                         <p:column>
                             <p:inputText id="filtrar" style="width: 98%;" value="#{emprestimoController.txtBusca}" onkeydown="#{emprestimoController.listar()}">
-                                <p:ajax event="keyup" update="@form" />
+                                <p:ajax event="keyup" update="@form"></p:ajax>
                             </p:inputText>
                         </p:column>
                         <p:column>
@@ -28,21 +28,36 @@
                                 <f:selectItem itemLabel="CPF" itemValue="CPF"/>
                                 <f:selectItem itemLabel="Titulo" itemValue="titulo"/>
                                 <f:selectItem itemLabel="ISBN" itemValue="isbn"/>
-                                <f:selectItem itemLabel="ISBN" itemValue="isbn"/>
-                                <p:ajax update="@form" />
+                                <p:ajax update="@form"></p:ajax>
                             </p:selectOneMenu>
                         </p:column>
                         <p:row>
                             <h:form id="dados">
                                 <p:column colspan="3">
+                                    <p:outputLabel value="#{emprestimoController.listar()}"></p:outputLabel>
                                     <p:dataTable var="emp" value="#{emprestimoController.emprestimos}" style="width: 100%">
                                         <p:column headerText="Opções">
                                             <p:panelGrid>
                                                 <p:row>
-                                                    <p:column>
-                                                        OP
-                                                    </p:column>
-                                                </p:row>
+                                                <p:column>
+                                                    <p:commandLink update=":devolver" oncomplete="PF('devolverEmp').show()">
+                                                        <h:outputText styleClass="ui-icon ui-icon-bookmark" style="margin:0 auto;" title="Registrar Devolução"/>
+                                                        <f:setPropertyActionListener value="#{emp}" target="#{emprestimoController.emprestimoSelecionado}" />
+                                                    </p:commandLink>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:commandLink update=":renovar" oncomplete="PF('renovarEmp').show()">
+                                                        <h:outputText styleClass="ui-icon ui-icon-refresh" style="margin:0 auto;" title="Renovar Empréstimo"/>
+                                                        <f:setPropertyActionListener value="#{emp}" target="#{emprestimoController.emprestimoSelecionado}" />
+                                                    </p:commandLink>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:commandLink update=":deletar" oncomplete="PF('deletarEmp').show()">
+                                                        <h:outputText styleClass="ui-icon ui-icon-cancel" style="margin:0 auto;" title="Deletar Empréstimo"/>
+                                                        <f:setPropertyActionListener value="#{emp}" target="#{emprestimoController.emprestimoSelecionado}" />
+                                                    </p:commandLink>
+                                                </p:column>
+                                            </p:row>
                                             </p:panelGrid>
                                         </p:column>
                                         <p:column headerText="ID">
@@ -66,9 +81,6 @@
                                         <p:column headerText="Data Prevista">
                                             <h:outputText value="#{emp.data_prevista}"/>
                                         </p:column>
-                                        <p:column headerText="Valor multa">
-                                            <h:outputText value="#{emp.multa}"/>
-                                        </p:column>
                                     </p:dataTable>
                                 </p:column>
                             </h:form>
@@ -76,6 +88,102 @@
                     </p:row>
                 </p:panelGrid>
             </p:fieldset>
+        </h:form>
+        <h:form id="devolver">
+            <p:dialog header="Registrar Devolução" widgetVar="devolverEmp" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <h:outputText value="Confirmar devolução do empréstimo:"/>
+                <p:outputPanel id="empInfo" rendered="#{not empty emprestimoController.emprestimoSelecionado}">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="ID:    "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.id}"/>
+
+                        <h:outputText value="Nome:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.nome}"/>
+
+                        <h:outputText value="CPF:   "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.CPF}"/>
+
+                        <h:outputText value="Titulo do Livro:   "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.titulo}"/>
+
+                        <h:outputText value="ISBN:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.ISBN}"/>
+
+                        <h:outputText value="Data empréstimo:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.data_emprestimo}"/>
+
+                        <h:outputText value="Data prevista:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.data_prevista}"/>
+                       
+                        <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{emprestimoController.devover()}" onclick="PF('devolverEmp').hide();update('@form')"/>
+                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('devolverEmp').hide()"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+        <h:form id="renovar">
+            <p:dialog header="Renovar Emprestimo" widgetVar="renovarEmp" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <h:outputText value="Renovar empréstimo:"/>
+                <p:outputPanel id="empInfoR" rendered="#{not empty emprestimoController.emprestimoSelecionado}">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="ID:    "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.id}"/>
+
+                        <h:outputText value="Nome:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.nome}"/>
+
+                        <h:outputText value="CPF:   "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.CPF}"/>
+
+                        <h:outputText value="Titulo do Livro:   "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.titulo}"/>
+
+                        <h:outputText value="ISBN:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.ISBN}"/>
+
+                        <h:outputText value="Data empréstimo:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.data_emprestimo}"/>
+
+                        <h:outputText value="Data prevista:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.data_prevista}"/>
+                       
+                        <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{emprestimoController.renovar()}" onclick="PF('renovarEmp').hide();update('@form')"/>
+                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('renovarEmp').hide()"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+        <h:form id="deletar">
+            <p:dialog header="Deletar Emprestimo" widgetVar="deletarEmp" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <h:outputText value="Deletar empréstimo:"/>
+                <p:outputPanel id="empInfoD" rendered="#{not empty emprestimoController.emprestimoSelecionado}">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="ID:    "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.id}"/>
+
+                        <h:outputText value="Nome:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.nome}"/>
+
+                        <h:outputText value="CPF:   "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.CPF}"/>
+
+                        <h:outputText value="Titulo do Livro:   "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.titulo}"/>
+
+                        <h:outputText value="ISBN:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.ISBN}"/>
+
+                        <h:outputText value="Data empréstimo:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.data_emprestimo}"/>
+
+                        <h:outputText value="Data prevista:  "/>
+                        <h:outputText value="#{emprestimoController.emprestimoSelecionado.data_prevista}"/>
+                       
+                        <p:commandButton value="Confirmar" style="background-color: lightgreen" action="#{emprestimoController.deletar()}" onclick="PF('deletarEmp').hide();update('@form')"/>
+                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('deletarEmp').hide()"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
         </h:form>
     </div>
 </ui:decorate>

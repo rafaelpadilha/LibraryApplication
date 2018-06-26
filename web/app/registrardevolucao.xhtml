@@ -41,19 +41,19 @@
                                                 <p:row>
                                                 <p:column>
                                                     <p:commandLink update=":devolver" oncomplete="PF('devolverEmp').show()">
-                                                        <h:outputText styleClass="ui-icon ui-icon-close" style="margin:0 auto;" title="Registrar Devolução"/>
+                                                        <h:outputText styleClass="ui-icon ui-icon-bookmark" style="margin:0 auto;" title="Registrar Devolução"/>
                                                         <f:setPropertyActionListener value="#{emp}" target="#{emprestimoController.emprestimoSelecionado}" />
                                                     </p:commandLink>
                                                 </p:column>
                                                 <p:column>
                                                     <p:commandLink update=":renovar" oncomplete="PF('renovarEmp').show()">
-                                                        <h:outputText styleClass="ui-icon ui-icon-pencil" style="margin:0 auto;" title="Renovar Empréstimo"/>
+                                                        <h:outputText styleClass="ui-icon ui-icon-refresh" style="margin:0 auto;" title="Renovar Empréstimo"/>
                                                         <f:setPropertyActionListener value="#{emp}" target="#{emprestimoController.emprestimoSelecionado}" />
                                                     </p:commandLink>
                                                 </p:column>
                                                 <p:column>
                                                     <p:commandLink update=":deletar" oncomplete="PF('deletarEmp').show()">
-                                                        <h:outputText styleClass="ui-icon ui-icon-note" style="margin:0 auto;" title="Deletar Empréstimo"/>
+                                                        <h:outputText styleClass="ui-icon ui-icon-cancel" style="margin:0 auto;" title="Deletar Empréstimo"/>
                                                         <f:setPropertyActionListener value="#{emp}" target="#{emprestimoController.emprestimoSelecionado}" />
                                                     </p:commandLink>
                                                 </p:column>

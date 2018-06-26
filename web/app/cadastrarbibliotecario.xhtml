@@ -37,7 +37,7 @@
                     <p:password id="pwd1" match="pwd2" feedback="true" value="#{funcionarioController.funcionario.senha}" required="true" requiredMessage="Senha Obrigatória" maxlength="10"/>
 
                     <h:outputLabel value="Confirmar Senha"/>
-                    <p:password id="pwd2" feedback="true" value="#{funcionarioController.funcionario.senha}" required="true" requiredMessage="Confirmar Senha Obrigatória" maxlength="10"/>
+                    <p:password id="pwd2" value="#{funcionarioController.funcionario.senha}" required="true" requiredMessage="Confirmar Senha Obrigatória" maxlength="10"/>
 
                     <h:outputLabel value="Cargo"/>
                     <p:selectOneMenu value="#{funcionarioController.funcionario.status}">

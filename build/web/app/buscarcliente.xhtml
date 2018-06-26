@@ -130,7 +130,7 @@
 
                         <h:outputLabel value="Telefone Celular"></h:outputLabel>
                         <p:inputMask mask="(99)999999999" value="#{clienteController.clienteSelecionado.telefoneCel}" required="true" requiredMessage="Telefone Celular Obrigatório"></p:inputMask>
-                        
+
                         <h:outputLabel value="Telefone Residencial"></h:outputLabel>
                         <p:inputMask mask="(99)999999999" value="#{clienteController.clienteSelecionado.telefoneRes}"></p:inputMask>
 
@@ -145,11 +145,49 @@
             </p:dialog>
         </h:form>
         <h:form id="listarM">
-            <p:dialog header="Listar Multas" widgetVar="listarMultas" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel rendered="#{not empty clienteController.clienteSelecionado}">
-                    <p:panelGrid columns="2">
-                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('listarMultas').hide()"></p:commandButton>
+            <p:dialog header="Listar Multas" widgetVar="listarMultas" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+                <p:outputPanel rendered="#{not empty clienteController.clienteSelecionado}" style="margin:0 auto">
+                    <p:panelGrid style="margin:0 auto">
+                        <p:row>
+                            <h:form id="dadosMulta">
+                                <p:column colspan="2">
+                                    <p:outputLabel value="#{emprestimoController.listarMultas(clienteController.clienteSelecionado.CPF)}"></p:outputLabel>
+                                    <p:dataTable id="dataMulta" var="emp" value="#{emprestimoController.multas}" style="width: 100%;margin: 0 auto">
+                                        <p:column headerText="Opções">
+
+                                            <h:commandButton value="Pagar" action="#{emprestimoController.pagarMulta(emp)}"></h:commandButton>
+                                            
+
+                                        </p:column>
+                                        <p:column headerText="ID">
+                                            <h:outputText value="#{emp.id}"/>
+                                        </p:column>
+                                        <p:column headerText="Titulo do Livro">
+                                            <h:outputText value="#{emp.titulo}"/>
+                                        </p:column>
+                                        <p:column headerText="ISBN">
+                                            <h:outputText value="#{emp.ISBN}"/>
+                                        </p:column>
+                                        <p:column headerText="Data Emprestimo">
+                                            <h:outputText value="#{emp.data_emprestimo}"/>
+                                        </p:column>
+                                        <p:column headerText="Data Prevista">
+                                            <h:outputText value="#{emp.data_prevista}"/>
+                                        </p:column>
+                                        <p:column headerText="Data Devolução">
+                                            <h:outputText value="#{emp.data_devolucao}"/>
+                                        </p:column>
+                                        <p:column headerText="Valor Multa">
+                                            <h:outputText value="#{emp.multa}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </h:form>
+                        </p:row>
                     </p:panelGrid>
+                    <p:row>
+                        <p:commandButton value="Cancelar" style="background-color: lightcoral" onclick="PF('listarMultas').hide()"></p:commandButton>
+                    </p:row>
                 </p:outputPanel>
             </p:dialog>
         </h:form>

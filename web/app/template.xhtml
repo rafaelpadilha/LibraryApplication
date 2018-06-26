@@ -10,6 +10,8 @@
     <h:body style="background: url(https://goo.gl/P5VUFe)">
         <div align="center"><h1 style="color: white">Library Sistem</h1>
             <hr></hr>
+            <p:outputLabel value="#{funcionarioController.buscarCPF(loginController.login.login,loginController.login.senha)}"/>
+            <p:outputLabel value="#{funcionarioController.cargo()}"/>
             <h:form>
                 <p:menubar>
                     <p:menuitem value="Home" url="index.jsf"></p:menuitem>
@@ -23,7 +25,7 @@
                         <p:menuitem value="Registrar Emprestimo" url="registraremprestimo.jsf"></p:menuitem>
                         <p:menuitem value="Registrar Devolução" url="registrardevolucao.jsf"></p:menuitem>
                     </p:submenu>
-                    <p:submenu label="Funcionários">
+                    <p:submenu label="Funcionários" rendered="#{funcionarioController.gerente}">
                         <p:menuitem value="Cadastrar Funcionário" url="cadastrarbibliotecario.jsf"></p:menuitem>
                         <p:menuitem value="Buscar Funcionário" url="buscarbibliotecario.jsf"></p:menuitem>
                     </p:submenu>

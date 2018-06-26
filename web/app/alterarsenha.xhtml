@@ -12,16 +12,16 @@
             <p:fieldset legend="Alterar Senha">
                 <p:panelGrid columns="2" layout="grid" style="width: 100%" styleClass="ui-noborder">
                     <h:outputLabel value="Senha antiga"></h:outputLabel>
-                    <p:password />
+                    <p:password value="#{funcionarioController.senha_a}" required="true" requiredMessage="Senha antiga obrigatória!"/>
                     
                     <h:outputLabel value="Senha Nova"></h:outputLabel>
-                    <p:password id="pw1" />
+                    <p:password id="pw1" match="pw2" feedback="true" value="#{funcionarioController.senha_n}" required="true" requiredMessage="Senha nova obrigatória!"/>
                     
                     <h:outputLabel value="Confirmar Senha Nova"></h:outputLabel>
-                    <p:password id="pw2" />
+                    <p:password id="pw2" value="#{funcionarioController.senha_n}" required="true" requiredMessage="Confirmar senha obrigatório!"/>
                                  
                     <h:commandButton value="Cancelar" action="/app/index.jsf" immediate="true" style="height: 50px;width: 200px;"/>
-                    <h:commandButton value="Cadastrar"  style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
+                    <h:commandButton value="Confirmar" action="#{funcionarioController.trocarSenha()}"  style="height: 50px;width: 200px;background-color: greenyellow"></h:commandButton>
                 </p:panelGrid>
                 
             </p:fieldset>
