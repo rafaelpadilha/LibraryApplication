@@ -58,6 +58,14 @@ public class ClienteController implements Serializable{
             adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
+    
+    public void attStatus(){
+        try {
+            cdao.atualizaStatus();
+        } catch (ErroSistema ex) {
+            adicionarMensagem(ex.getMessage(), ex.getCause().getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
 
     public Cliente getClienteSelecionado() {
         return clienteSelecionado;
